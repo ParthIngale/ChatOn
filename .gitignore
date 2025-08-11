@@ -8,7 +8,9 @@ chat-app-backend/.env
 chat-app-frontend/.env
 .env
 *.env.local
-
+# Hide application.properties
+# Hide Spring Boot application.properties
+chat-app-backend/src/main/resources/application.properties
 # Build outputs
 chat-app-frontend/build/
 chat-app-frontend/dist/
