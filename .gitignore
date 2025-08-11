@@ -1,0 +1,28 @@
+# Dependencies
+chat-app-backend/node_modules/
+chat-app-frontend/node_modules/
+node_modules/
+
+# Environment variables  
+chat-app-backend/.env
+chat-app-frontend/.env
+.env
+*.env.local
+
+# Build outputs
+chat-app-frontend/build/
+chat-app-frontend/dist/
+chat-app-backend/build/
+chat-app-backend/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Git folders (to avoid nested git repos)
+*/.git/
