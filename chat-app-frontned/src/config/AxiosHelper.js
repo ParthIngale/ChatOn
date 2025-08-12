@@ -1,8 +1,11 @@
 // src/config/AxiosHelper.js
 import axios from "axios";
 
+// export const baseURL = "http://localhost:8080"; 
 export const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-// "http://localhost:8080"; // Your Spring Boot port
+export const wsURL = import.meta.env.VITE_WS_URL || 'http://localhost:8080/chat';
+
+// Your Spring Boot port
 
 export const httpClient = axios.create({
   baseURL,
@@ -11,12 +14,19 @@ export const httpClient = axios.create({
   },
 });
 
+const api = axios.create({
+  baseURL: baseURL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default api;
 // 
+
 // In your axios configuration or API service
 // const API_BASE_URL = ;
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8080/ws';
-
-export { API_BASE_URL, WS_URL };
 // src/config/AxiosHelper.js
 // import axios from "axios";
 

@@ -86,7 +86,9 @@ const ChatPage = () => {
 
     const connectWebSocket = () => {
       try {
-        const sock = new SockJS(`${baseURL}/chat`);
+        // const sock = new SockJS(`${baseURL}/chat`);
+        const wsUrl = import.meta.env.VITE_WS_URL || `${baseURL}/chat`;
+const sock = new SockJS(wsUrl);
         client = Stomp.over(sock);
 
         client.connect(
