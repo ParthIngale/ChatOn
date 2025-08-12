@@ -23,6 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .withSockJS();
     }
 }
+
 //package com.substring.chat.chat_app_backend.config;
 //
 //import org.springframework.context.annotation.Configuration;
