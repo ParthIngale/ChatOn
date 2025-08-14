@@ -26,10 +26,11 @@ export const getMessages = async (roomId, size = 50, page = 0) => {
   return response.data;
 };
 // API Base URL
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-
+export const API_BASE_URL ='http://localhost:8080';
+// export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+// 
 // WebSocket URL  
-export const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8080/ws';
+export const WS_URL ='ws://localhost:8080/ws';
 
 // Axios instance
 import axios from 'axios';

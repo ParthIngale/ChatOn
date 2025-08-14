@@ -20,31 +20,90 @@ const JoinCreateChat = () => {
     });
   }
 
-  const joinChat = async () => {
-    if (!detail.roomId || !detail.userName) return toast.error("Enter name and room id");
-    try {
-      await joinChatApi(detail.roomId);
+  // const joinChat = async () => {
+  //   if (!detail.roomId || !detail.userName) return toast.error("Enter name and room id");
+  //   try {
+  //     await joinChatApi(detail.roomId);
+  //     setRoomId(detail.roomId);
+  //     setCurrentUser(detail.userName);
+  //     setConnected(true);
+  //     navigate(`/chat/${detail.roomId}`);
+  //   } catch (err) {
+  //     toast.error(err?.response?.data || "Failed to join room");
+  //   }
+  // };
+const joinChat = async () => {
+  if (!detail.roomId || !detail.userName) return toast.error("Enter name and room id");
+  try {
+    const roomData = await joinChatApi(detail.roomId);
+    
+    // Check if the response is an error object
+    if (roomData && (roomData.error || roomData.status === 'error' || roomData.timestamp)) {
+      toast.error(roomData.message || "Room not found or server error");
+      return;
+    }
+    
+    // Only proceed if we have valid room data
+    if (roomData && roomData.roomId) {
       setRoomId(detail.roomId);
       setCurrentUser(detail.userName);
       setConnected(true);
       navigate(`/chat/${detail.roomId}`);
-    } catch (err) {
-      toast.error(err?.response?.data || "Failed to join room");
+    } else {
+      toast.error("Invalid room data received");
     }
-  };
-
-  const createRoomHandler = async () => {
-    if (!detail.roomId || !detail.userName) return toast.error("Enter name and room id");
-    try {
-      await createRoom(detail.roomId);
-      setRoomId(detail.roomId);
-      setCurrentUser(detail.userName);
-      setConnected(true);
-      navigate(`/chat/${detail.roomId}`);
-    } catch (err) {
-      toast.error(err?.response?.data || "Failed to create room");
+  } catch (err) {
+    console.error("Error joining room:", err);
+    if (err.response) {
+      // Server responded with error status
+      toast.error(err.response.data?.message || err.response.data || "Failed to join room");
+    } else if (err.request) {
+      // Network error
+      toast.error("Cannot connect to server. Please check if backend is running.");
+    } else {
+      // Other error
+      toast.error("Failed to join room");
     }
-  };
+  }
+};
+const createRoomHandler = async () => {
+  if (!detail.roomId || !detail.userName) return toast.error("Enter name and room id");
+  try {
+    const roomData = await createRoom(detail.roomId);
+    
+    // Check if the response is an error object
+    if (roomData && (roomData.error || roomData.status === 'error' || roomData.timestamp)) {
+      toast.error(roomData.message || "Failed to create room");
+      return;
+    }
+    
+    setRoomId(detail.roomId);
+    setCurrentUser(detail.userName);
+    setConnected(true);
+    navigate(`/chat/${detail.roomId}`);
+  } catch (err) {
+    console.error("Error creating room:", err);
+    if (err.response) {
+      toast.error(err.response.data?.message || err.response.data || "Failed to create room");
+    } else if (err.request) {
+      toast.error("Cannot connect to server. Please check if backend is running.");
+    } else {
+      toast.error("Failed to create room");
+    }
+  }
+};
+  // const createRoomHandler = async () => {
+  //   if (!detail.roomId || !detail.userName) return toast.error("Enter name and room id");
+  //   try {
+  //     await createRoom(detail.roomId);
+  //     setRoomId(detail.roomId);
+  //     setCurrentUser(detail.userName);
+  //     setConnected(true);
+  //     navigate(`/chat/${detail.roomId}`);
+  //   } catch (err) {
+  //     toast.error(err?.response?.data || "Failed to create room");
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4 relative overflow-hidden">

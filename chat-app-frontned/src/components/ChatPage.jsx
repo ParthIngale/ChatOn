@@ -84,138 +84,140 @@ const ChatPage = () => {
   // Replace the WebSocket connection part in your ChatPage.jsx
 // Find this section and replace it:
 
-useEffect(() => {
-  let client = null;
-  let subscription = null;
+// useEffect(() => {
+//   let client = null;
+//   let subscription = null;
 
-  const connectWebSocket = () => {
-    try {
-      // FIXED: Use /ws endpoint instead of /chat
-      const wsUrl = import.meta.env.VITE_WS_URL || `${baseURL}/ws`;
-      console.log('Connecting to WebSocket:', wsUrl);
+//   const connectWebSocket = () => {
+//     try {
+//       // FIXED: Use /ws endpoint instead of /chat
+//       const wsUrl = import.meta.env.VITE_WS_URL || `${baseURL}/ws`;
+//       console.log('Connecting to WebSocket:', wsUrl);
       
-      const sock = new SockJS(wsUrl);
-      client = Stomp.over(sock);
+//       const sock = new SockJS(wsUrl);
+//       client = Stomp.over(sock);
 
-      // Add connection timeout
-      const connectTimeout = setTimeout(() => {
-        console.error('WebSocket connection timeout');
-        toast.error('Connection timeout');
-      }, 15000);
+//       // Add connection timeout
+//       const connectTimeout = setTimeout(() => {
+//         console.error('WebSocket connection timeout');
+//         toast.error('Connection timeout');
+//       }, 15000);
 
-      client.connect(
-        {},
-        () => {
-          clearTimeout(connectTimeout);
-          setStompClient(client);
-          toast.success("Connected to chat");
-          console.log('WebSocket connected successfully');
+//       client.connect(
+//         {},
+//         () => {
+//           clearTimeout(connectTimeout);
+//           setStompClient(client);
+//           toast.success("Connected to chat");
+//           console.log('WebSocket connected successfully');
 
-          // Subscribe once and save subscription for cleanup
-          subscription = client.subscribe(`/topic/room/${roomId}`, (message) => {
-            try {
-              console.log('Received message:', message.body);
-              const newMessage = JSON.parse(message.body);
-              setMessages((prev) => [...prev, newMessage]);
-            } catch (err) {
-              console.error("Failed to parse stomp message:", err);
-            }
-          });
-        },
-        (error) => {
-          clearTimeout(connectTimeout);
-          console.error("STOMP connect error:", error);
-          toast.error("WebSocket connection failed");
+//           // Subscribe once and save subscription for cleanup
+//           subscription = client.subscribe(`/topic/room/${roomId}`, (message) => {
+//             try {
+//               console.log('Received message:', message.body);
+//               const newMessage = JSON.parse(message.body);
+//               setMessages((prev) => [...prev, newMessage]);
+//             } catch (err) {
+//               console.error("Failed to parse stomp message:", err);
+//             }
+//           });
+//         },
+//         (error) => {
+//           clearTimeout(connectTimeout);
+//           console.error("STOMP connect error:", error);
+//           toast.error("WebSocket connection failed");
           
-          // Retry connection after 3 seconds
-          setTimeout(() => {
-            if (connected && roomId) {
-              console.log('Retrying WebSocket connection...');
-              connectWebSocket();
-            }
-          }, 3000);
-        }
-      );
-    } catch (err) {
-      console.error("connectWebSocket error:", err);
-      toast.error("WebSocket error");
-    }
-  };
-
-  if (connected && roomId) {
-    connectWebSocket();
-  }
-
-  // cleanup: unsubscribe + disconnect
-  return () => {
-    try {
-      if (subscription) {
-        subscription.unsubscribe();
-      }
-      if (client && client.connected) {
-        client.disconnect();
-      }
-    } catch (err) {
-      console.error('Cleanup error:', err);
-    }
-  };
-}, [roomId, connected]);
-//   useEffect(() => {
-//     let client = null;
-//     let subscription = null;
-
-//     const connectWebSocket = () => {
-//       try {
-//         // const sock = new SockJS(`${baseURL}/chat`);
-//         const wsUrl = import.meta.env.VITE_WS_URL || `${baseURL}/chat`;
-// const sock = new SockJS(wsUrl);
-//         client = Stomp.over(sock);
-
-//         client.connect(
-//           {},
-//           () => {
-//             setStompClient(client);
-//             toast.success("connected");
-
-//             // subscribe once and save subscription for cleanup
-//             subscription = client.subscribe(`/topic/room/${roomId}`, (message) => {
-//               try {
-//                 const newMessage = JSON.parse(message.body);
-//                 setMessages((prev) => [...prev, newMessage]);
-//               } catch (err) {
-//                 console.error("Failed to parse stomp message:", err);
-//               }
-//             });
-//           },
-//           (error) => {
-//             console.error("STOMP connect error:", error);
-//             toast.error("WebSocket connection failed");
-//           }
-//         );
-//       } catch (err) {
-//         console.error("connectWebSocket error:", err);
-//         toast.error("WebSocket error");
-//       }
-//     };
-
-//     if (connected && roomId) {
-//       connectWebSocket();
+//           // Retry connection after 3 seconds
+//           setTimeout(() => {
+//             if (connected && roomId) {
+//               console.log('Retrying WebSocket connection...');
+//               connectWebSocket();
+//             }
+//           }, 3000);
+//         }
+//       );
+//     } catch (err) {
+//       console.error("connectWebSocket error:", err);
+//       toast.error("WebSocket error");
 //     }
+//   };
 
-//     // cleanup: unsubscribe + disconnect
-//     return () => {
-//       try {
-//         if (subscription) {
-//           subscription.unsubscribe();
-//         }
-//         if (client && client.connected) {
-//           client.disconnect();
-//         }
-//       } catch (err) {
-//         // ignore disconnect/unsubscribe errors
+//   if (connected && roomId) {
+//     connectWebSocket();
+//   }
+
+//   // cleanup: unsubscribe + disconnect
+//   return () => {
+//     try {
+//       if (subscription) {
+//         subscription.unsubscribe();
 //       }
-//     };
-//   }, [roomId, connected]);
+//       if (client && client.connected) {
+//         client.disconnect();
+//       }
+//     } catch (err) {
+//       console.error('Cleanup error:', err);
+//     }
+//   };
+// }, [roomId, connected]);
+
+
+useEffect(() => {
+    let client = null;
+    let subscription = null;
+
+    const connectWebSocket = () => {
+      try {
+        // const sock = new SockJS(`${baseURL}/chat`);
+        const wsUrl = import.meta.env.VITE_WS_URL || `${baseURL}/chat`;
+const sock = new SockJS(wsUrl);
+        client = Stomp.over(sock);
+
+        client.connect(
+          {},
+          () => {
+            setStompClient(client);
+            toast.success("connected");
+
+            // subscribe once and save subscription for cleanup
+            subscription = client.subscribe(`/topic/room/${roomId}`, (message) => {
+              try {
+                const newMessage = JSON.parse(message.body);
+                setMessages((prev) => [...prev, newMessage]);
+              } catch (err) {
+                console.error("Failed to parse stomp message:", err);
+              }
+            });
+          },
+          (error) => {
+            console.error("STOMP connect error:", error);
+            toast.error("WebSocket connection failed");
+          }
+        );
+      } catch (err) {
+        console.error("connectWebSocket error:", err);
+        toast.error("WebSocket error");
+      }
+    };
+
+    if (connected && roomId) {
+      connectWebSocket();
+    }
+
+    // cleanup: unsubscribe + disconnect
+    return () => {
+      try {
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+        if (client && client.connected) {
+          client.disconnect();
+        }
+      } catch (err) {
+        // ignore disconnect/unsubscribe errors
+      }
+    };
+  }, [roomId, connected]);
 
   // send message via STOMP (original behavior: don't append locally; server will broadcast)
   const sendMessage = async () => {
