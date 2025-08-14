@@ -273,22 +273,22 @@ const createRoomHandler = async () => {
           </div>
         </div>
       </div>
-{/* <style>{`
+<style>{`
   .animation-delay-2000 {
     animation-delay: 2s;
   }
   .animation-delay-4000 {
     animation-delay: 4s;
   }
-`}</style> */}
-      <style jsx>{`
+`}</style>
+      {/* <style jsx>{`
         .animation-delay-2000 {
           animation-delay: 2s;
         }
         .animation-delay-4000 {
           animation-delay: 4s;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 };
