@@ -3,8 +3,6 @@
 import axios from "axios";
 
 export const baseURL = "http://localhost:8080"; 
-// export const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-// export const wsURL = import.meta.env.VITE_WS_URL || 'http://localhost:8080/chat';
 export const wsURL = 'http://localhost:8080/ws';
 // Your Spring Boot port
 
