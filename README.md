@@ -6,6 +6,7 @@ ChatOn is a **real-time messaging platform** built with **Spring Boot** and **Re
 
 ## 🚀 Features
 
+-**[Watch the project demo]([https://youtu.be/VIDEO_ID](https://drive.google.com/file/d/1O_viOp2D-XCe7DUijoIgtat5rdrHwc7e/view?usp=sharing))
 - **Real-time Messaging** using WebSocket (STOMP protocol)
 - **Room-based Conversations** – Create and join chat rooms
 - **Message Persistence** in MongoDB for chat history
@@ -13,7 +14,6 @@ ChatOn is a **real-time messaging platform** built with **Spring Boot** and **Re
 - **Responsive UI** built with React.js and Tailwind CSS
 - **Scalable Backend** with Spring Boot REST APIs
 - **Deployed** on Render for live usage
-
 ---
 
 ## 🛠️ Tech Stack
