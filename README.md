@@ -3,7 +3,7 @@
 ChatOn is a **real-time messaging platform** built with **Spring Boot** and **React.js**, featuring WebSocket-based communication for instant chats, room-based conversations, secure authentication, and a scalable architecture that supports concurrent users.
 
 ---
-**[Watch the project demo]**([https://youtu.be/VIDEO_ID](https://drive.google.com/file/d/1O_viOp2D-XCe7DUijoIgtat5rdrHwc7e/view?usp=sharing))
+**[Watch the project demo]**(https://drive.google.com/file/d/1O_viOp2D-XCe7DUijoIgtat5rdrHwc7e/view?usp=sharing)
 
 ## 🚀 Features
 
