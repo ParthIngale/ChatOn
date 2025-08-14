@@ -25,6 +25,8 @@ export const getMessages = async (roomId, size = 50, page = 0) => {
   );
   return response.data;
 };
+// Change from deployed URL to local:
+// const BASE_URL = 'http://localhost:8080';
 // API Base URL
 export const API_BASE_URL ='http://localhost:8080';
 // export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
