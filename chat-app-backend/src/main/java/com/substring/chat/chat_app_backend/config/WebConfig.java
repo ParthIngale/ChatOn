@@ -13,10 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${CORS_ORIGINS:https://chaton-frontend-yqy5.onrender.com}")
     private String allowedOrigins;
 
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns(allowedOrigins.split(","))
+                .allowedOrigins("https://chaton-frontend-yqy5.onrender.com", "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)
